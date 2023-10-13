@@ -9,6 +9,7 @@ import Income from './Components/Income/Income'
 import Expenses from './Components/Expenses/Expenses';
 import { useGlobalContext } from './context/globalContext';
 
+
 function App() {
   const [active, setActive] = useState(1)
 
