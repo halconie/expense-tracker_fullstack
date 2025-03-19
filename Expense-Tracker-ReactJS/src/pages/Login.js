@@ -156,11 +156,11 @@ const Login = () => {
         <p className="text-2xl ml-2">Login</p>
 
         {/* Display error message if any */}
-        {error && (
+        {/* {error && (
           <div className="w-full p-2 mt-4 text-red-700 bg-red-100 border border-red-400 rounded">
             {error}
           </div>
-        )}
+        )} */}
 
         <TextBox
           text="text-md text-black"
@@ -215,7 +215,7 @@ const Login = () => {
       </button>
       {/* changed to relative from absolute */}
       <div className="relative bottom-0 bg-[#2E0052] flex flex-col items-center w-full h-10 pt-2">
-        <span className="text-white">Memories | All rights reserved</span>
+        <span className="text-white">Expense Tracker | All rights reserved</span>
       </div>
     </div>
   );

@@ -14,12 +14,12 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loader, setLoader] = useState(false);
-  // const [error, setError] = useState(""); // New state for handling error
+  const [error, setError] = useState(""); // New state for handling error
 
   const navigate = useNavigate();
 
   // Improved validation with specific error messages
-  /* const validateForm = () => {
+  const validateForm = () => {
     // Reset error state
     setError("");
 
@@ -55,19 +55,22 @@ const Register = () => {
     }
 
     return true;
-  }; */
+  };
 
-  const register = (event) => {
+  const register = async (event) => {
     event.preventDefault();
     // Activate the loader
+    setError(""); // Clear previous errors
     setLoader(true);
     // Create a new user
     if (name !== "" && mobileNumber !== "" && email !== "" && password !== "") {
       if (password !== confirmPassword) {
         setLoader(false);
-        alert("Passwords do not match");
-      } else {
-        setLoader(false);
+        setError("Passwords do not match");
+        return;
+      } 
+      
+      
         const user = {
           name: name,
           mobile: Number(mobileNumber),
@@ -75,13 +78,33 @@ const Register = () => {
           password: password,
           confirmPassword: confirmPassword,
         };
-        setName("");
-        setEmail("");
-        setMobileNumber("");
-        setPassword("");
-        setConfirmPassword("");
-        registerUser(user)
-          .then((req, res) => {
+
+        try {
+          const response = await registerUser(user);
+          const { status, message } = response.data;
+          
+          if (status === "failed") {
+            setError(message);
+          } else {  
+            setName("");
+            setEmail("");
+            setMobileNumber("");
+            setPassword("");
+            setConfirmPassword("");
+            navigate("/");
+          }
+        } catch (error) {
+          setError(error.message);
+        } finally {
+          setLoader(false);
+        }
+      } else {
+        setLoader(false);
+        setError("All fields are mandatory!");
+      }
+    };
+            // registerUser(user)
+          /* .then((req, res) => {
             // navigate("/");
             console.log(req.data);
             const { status, message } = req.data;
@@ -101,7 +124,7 @@ const Register = () => {
       setLoader(false);
       alert("All fields are mandatory!");
     }
-  };
+  }; */
 
   // Handle form submission
   /* const register = async (event) => {
