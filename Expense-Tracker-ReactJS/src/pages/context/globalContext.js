@@ -6,7 +6,7 @@ const BASE_URL = "http://localhost:3000/api/transactions/";
 const GlobalContext = React.createContext();
 
 export const GlobalProvider = ({ children }) => {
-  let token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [error, setError] = useState(null);
@@ -26,18 +26,35 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const getIncomes = async () => {
-    const response = await axios.get(`${BASE_URL}get-incomes`);
-    setIncomes(response.data);
-    console.log(response.data);
+    try {
+      const response = await axios.get(`${BASE_URL}get-incomes`, {
+        headers: {
+          authorization: token,
+        }
+      });
+      setIncomes(response.data);
+      // console.log(response.data);
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to get incomes");
+    }
+
   };
 
   const deleteIncome = async (id) => {
-    const res = await axios.delete(`${BASE_URL}delete-income/${id}`);
-    getIncomes();
+    try {
+      const res = await axios.delete(`${BASE_URL}delete-income/${id}`, {
+        headers: {
+          authorization: token,
+        }
+      });
+      getIncomes();
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to delete incomes");
+    }
   };
 
-  const totalIncome = () => {
-    let totalIncome = 0;
+  const totalIncomes = () => {
+    const totalIncome = 0;
     incomes.forEach((income) => {
       totalIncome = totalIncome + income.amount;
     });
@@ -45,10 +62,10 @@ export const GlobalProvider = ({ children }) => {
     return totalIncome;
   };
 
-  //calculate incomes
-  const addExpense = async (income) => {
+  //calculate expenses
+  const addExpense = async (expense) => {
     const response = await axios
-      .post(`${BASE_URL}add-expense`, income, {
+      .post(`${BASE_URL}add-expense`, expense, {
         headers: {
           authorization: token,
         },
@@ -60,27 +77,35 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const getExpenses = async () => {
-    const response = await axios.get(`${BASE_URL}get-expenses`);
-    setExpenses(response.data);
-    console.log(response.data);
+    try {
+      const response = await axios.get(`${BASE_URL}get-expenses`);
+      setExpenses(response.data);
+      console.log(response.data);
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to get expenses");
+    }
   };
 
   const deleteExpense = async (id) => {
-    const res = await axios.delete(`${BASE_URL}delete-expense/${id}`);
-    getExpenses();
+    try {
+      const res = await axios.delete(`${BASE_URL}delete-expense/${id}`);
+      getExpenses();
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to delete expenses");
+    }
   };
 
   const totalExpenses = () => {
-    let totalIncome = 0;
-    expenses.forEach((income) => {
-      totalIncome = totalIncome + income.amount;
+    const totalExpense = 0;
+    expenses.forEach((expense) => {
+      totalExpense = totalExpense + expense.amount;
     });
 
-    return totalIncome;
+    return totalExpense;
   };
 
   const totalBalance = () => {
-    return totalIncome() - totalExpenses();
+    return totalIncomes() - totalExpenses();
   };
 
   const transactionHistory = () => {
@@ -100,7 +125,7 @@ export const GlobalProvider = ({ children }) => {
         incomes,
         deleteIncome,
         expenses,
-        totalIncome,
+        totalIncomes,
         addExpense,
         getExpenses,
         deleteExpense,

@@ -73,6 +73,7 @@ const NavStyled = styled.nav`
     height: 100px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
     img {
       width: 80px;

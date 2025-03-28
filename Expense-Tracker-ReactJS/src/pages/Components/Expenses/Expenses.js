@@ -7,33 +7,33 @@ import IncomeItem from '../IncomeItem/IncomeItem';
 import ExpenseForm from './ExpenseForm';
 
 function Expenses() {
-    const {addIncome,expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
+    const { addExpense, expenses, getExpenses, deleteExpense, totalExpenses } = useGlobalContext()
 
-    useEffect(() =>{
+    useEffect(() => {
         getExpenses()
     }, [])
     return (
         <ExpenseStyled>
             <InnerLayout>
                 <h1>Expenses</h1>
-                <h2 className="total-income">Total Expense: <span>${totalExpenses()}</span></h2>
-                <div className="income-content">
+                <h2 className="total-expense">Total Expense: <span>₹{totalExpenses()}</span></h2>
+                <div className="expense-content">
                     <div className="form-container">
                         <ExpenseForm />
                     </div>
-                    <div className="incomes">
-                        {expenses.map((income) => {
-                            const {_id, title, amount, date, category, description, type} = income;
-                            console.log(income)
+                    <div className="expenses">
+                        {expenses.map((expense) => {
+                            const { _id, title, amount, date, category, description, type } = expense;
+                            console.log(expense)
                             return <IncomeItem
                                 key={_id}
-                                id={_id} 
-                                title={title} 
-                                description={description} 
-                                amount={amount} 
-                                date={date} 
+                                id={_id}
+                                title={title}
+                                description={description}
+                                amount={amount}
+                                date={date}
                                 type={type}
-                                category={category} 
+                                category={category}
                                 indicatorColor="var(--color-green)"
                                 deleteItem={deleteExpense}
                             />
@@ -48,7 +48,7 @@ function Expenses() {
 const ExpenseStyled = styled.div`
     display: flex;
     overflow: auto;
-    .total-income{
+    .total-expense{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -66,10 +66,10 @@ const ExpenseStyled = styled.div`
             color: var(--color-green);
         }
     }
-    .income-content{
+    .expense-content{
         display: flex;
         gap: 2rem;
-        .incomes{
+        .expenses{
             flex: 1;
         }
     }

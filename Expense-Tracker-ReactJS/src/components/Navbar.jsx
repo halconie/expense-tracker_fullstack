@@ -47,7 +47,7 @@ const Navbar = () => {
       setUserAuth(false);
     }
   }, [setUserAuth]); // Include setUserAuth in dependencies */
-  
+
   let token = localStorage.getItem("token");
   const { userAuth, setUserAuth } = useContext(AuthContext);
 
@@ -64,14 +64,14 @@ const Navbar = () => {
     <div className="fixed w-full h-20  shadow-xl bg-[#ecf0f3] text-[#1f2937] tracking-wide mb-24">
       <div className="flex justify-between items-center w-full h-full px-7 2xl:px-16">
         <h1 className="text-4xl sm:text-2xl md:text-4xl cursor-pointer pl-0 font-bold">
-          Memories
+          Expense Tracker
         </h1>
         <div>
           <ul className="hidden md:flex ">
             {/* <Link href='/' className='invisible ml-10 text-md font-bold uppercase'>
                         Home
                     </Link> */}
-            <a href="/">
+            <a href="">
               <li className="font-bold ml-10 text-md uppercase hover:border-b cursor-pointer">
                 Home
               </li>
@@ -108,23 +108,33 @@ const Navbar = () => {
         <div
           className={
             nav
-              ? "fixed left-0 top-0 w-[75%] sm:w-[60%] md:w-[45%] h-screen bg-[#ecf0f3] py-10 px-6 ease-in duration-500"
+              ? "fixed left-0 top-0 w-[75%] sm:w-[60%] md:w-[45%] h-screen bg-[#ecf0f3] py-10 px-6 ease-in duration-500 overflow-y-auto"
               : "hidden"
           }
         >
           <div>
-            <div className="flex w-full items-center justify-between">
-              <h1 className="text-4xl font-bold">Memories</h1>
+            {/* <div className="flex w-full items-center justify-between">
+              <h1 className="text-4xl font-bold">Expense Tracker</h1>
               <div
                 onClick={handleNav}
                 className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer"
               >
                 <AiOutlineClose size={15} />
               </div>
+            </div> */}
+            {/* Effort to take close button to top right */}
+            <div className="relative w-full pb-4">
+              <h1 className="text-4xl font-bold">Expense Tracker</h1>
+              <div
+                onClick={handleNav}
+                className="absolute top-0 right-0 rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:bg-gray-100 transition-colors"
+              >
+                <AiOutlineClose size={15} />
+              </div>
             </div>
             <div className="border-b border-gray-300 my-4">
               <p className="w-[100%] md:w-[90%] py-2">
-                Let's build something legendary
+                Let's track something worthy
               </p>
             </div>
           </div>
@@ -147,10 +157,10 @@ const Navbar = () => {
               </a>
             </ul>
             <div className="pt-[40%]">
-              <p className="uppercase tracking widest text-[#5651e5]">
+              <p className="uppercase tracking-widest text-[#5651e5]">
                 Let's connect
               </p>
-              <div className="flex items-center justify-between my-4 w-full sm:w-[80%]">
+              <div className="flex items-center justify-between my-4 w-full sm:w-[100%]">
                 <a
                   href="https://www.linkedin.com/in/japneetrajput/"
                   className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300"

@@ -6,6 +6,7 @@ import { GlobalProvider } from "./context/globalContext";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import styled from "styled-components";
 import bg from "./img/bg.png";
+import dark_mode_gradient from "./img/dark_mode_gradient.png";
 import { MainLayout } from "./styles/Layouts";
 import Orb from "./Components/Orb/Orb";
 import Navigation from "./Components/Navigation/Navigation";
@@ -67,6 +68,7 @@ const Profile = () => {
       <GlobalStyle />
 
       <GlobalProvider>
+        {/* <AppStyled bg={dark_mode_gradient} className="App"> */}
         <AppStyled bg={bg} className="App">
           {orbMemo}
           <MainLayout>
