@@ -118,7 +118,7 @@ const DashboardStyled = styled.div`
                 margin: 1rem 0;
                 display: flex;
                 align-items: center;
-                justify-content: space-een;
+                justify-content: space-between;
             }
             .salary-title{
                 font-size: 1.2rem;
